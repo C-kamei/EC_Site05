@@ -1,19 +1,20 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { Button, Table, Container } from 'react-bootstrap';
 
 function ThankYou() {
   const { state } = useLocation();
   const { cart, total } = state || { cart: [], total: 0 };
 
   const handleGoBack = () => {
-    window.history.back(); // ブラウザの戻る機能を使用して前の画面に戻る
+    window.history.back();
   };
 
   return (
-    <div>
+    <Container>
       <h2>購入ありがとうございます。</h2>
       <h3>購入した商品:</h3>
-      <table border="1">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>商品名</th>
@@ -32,10 +33,10 @@ function ThankYou() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <h3>合計金額: {total}円</h3>
-      <button onClick={handleGoBack}>戻る</button>
-    </div>
+      <Button variant="primary" onClick={handleGoBack}>戻る</Button>
+    </Container>
   );
 }
 

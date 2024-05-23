@@ -1,11 +1,10 @@
-// PrivateRoute.js
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 
+//認証が必要なページにアクセスするためのコンポーネント
+//認証情報がある場合はコンポーネントを表示し、ない場合はログインページにリダイレクトする
 function PrivateRoute({ auth, component: Component }) {
-  const isAuthenticated = !!auth; // 実際にはより複雑な認証ロジックが必要
-
-  return isAuthenticated ? <Component auth={auth} /> : <Navigate to="/login" />;
+  return auth ? <Component auth={auth} /> : <Navigate to="/login" />;
 }
 
 export default PrivateRoute;
