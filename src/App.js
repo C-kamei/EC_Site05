@@ -1,20 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import Fruits from './Fruits';
 import ThankYou from './ThankYou';
 import Login from './Login';
-import PrivateRoute from './PrivateRoute'; 
+import PrivateRoute from './PrivateRoute';
 
 function App() {
-  const auth = 'Basic ' + btoa('user:password');
+  const [auth, setAuth] = useState(null);
 
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<PrivateRoute auth={auth} component={Fruits} />} />
-        <Route path="/thank-you" element={<ThankYou />} /> {/* historyプロパティを渡す */}
-      </Routes>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/">ECサイト</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/">ホーム</Nav.Link>
+            <Nav.Link href="/login">ログイン</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <Container className="mt-4">
+        {/* ルーティング情報*/}
+        <Routes>
+          <Route path="/login" element={<Login setAuth={setAuth} />} />
+          <Route path="/" element={<PrivateRoute auth={auth} component={Fruits} />} />
+          <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Container>
     </Router>
   );
 }
