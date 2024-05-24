@@ -9,7 +9,7 @@ function ThankYou() {
   const handleGoBack = () => {
     window.history.back();
   };
-
+// 
   return (
     <Container>
       <h2>購入ありがとうございます。</h2>
